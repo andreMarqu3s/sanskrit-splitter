@@ -29,7 +29,7 @@ You can install these dependencies using pip.
     Example:
 
     ```
-    python sanskrit-splitter.py example_word.txt -o output.txt
+    python sanskrit-splitter.py example.txt -o output.txt
 	python sanskrit-splitter.py "pudgaladharmanairātmyapratipādanaṃ punaḥ kleśajñeyāvaraṇaprahāṇārtham"
     ```
 
