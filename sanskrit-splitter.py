@@ -24,17 +24,31 @@ else:
     input_text = args.input
 
 # Send a POST request to the splitter server with the input text
-result = requests.post('https://splitter-server-tylergneill.pythonanywhere.com/', json={'input_text': input_text})
+#response = requests.post('https://splitter-server-tylergneill.pythonanywhere.com/', json={'input_text': input_text}, stream=True)
+response = requests.post(
+"https://www.skrutable.info/api/split",
+data={
+"input_text": input_text,
+"from_scheme": "IAST",
+"to_scheme": "IAST"
+},
+stream=True)
 
 # Check if the output file argument was specified
 if args.output_file:
     # Open the output file with the utf-8 encoding
     with open(args.output_file, 'w', encoding='utf-8') as output_file:
-        # Write the result string to the output file
-        output_file.write(result.text)
+        # Read the response in chunks and write to the output file
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                output_file.write(chunk.decode('utf-8'))
 
     # Print a success message
     print('Results saved to', args.output_file)
 else:
-    # Print the result string to the terminal
-    print(result.text)
+    # Read the response in chunks and print to the terminal
+    result = ''
+    for chunk in response.iter_content(chunk_size=1024):
+        if chunk:
+            result += chunk.decode('utf-8')
+    print(result)
