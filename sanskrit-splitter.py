@@ -26,13 +26,14 @@ else:
 # Send a POST request to the splitter server with the input text
 #response = requests.post('https://splitter-server-tylergneill.pythonanywhere.com/', json={'input_text': input_text}, stream=True)
 response = requests.post(
-"https://www.skrutable.info/api/split",
-data={
-"input_text": input_text,
-"from_scheme": "IAST",
-"to_scheme": "IAST"
-},
-stream=True)
+"https://splitter-server-tylergneill.pythonanywhere.com/",
+json={'input_text': input_text})
+#data={
+#"input_text": input_text,
+#"from_scheme": "IAST",
+#"to_scheme": "IAST"
+#},
+#stream=True)
 
 # Check if the output file argument was specified
 if args.output_file:
